@@ -149,7 +149,7 @@ def inference(model, dwav, sr, device, chunk_seconds: float = 30.0, overlap_seco
     hop_length = chunk_length - overlap_length
 
     chunks = []
-    for start in trange(0, dwav.shape[-1], hop_length):
+    for start in trange(0, dwav.shape[-1], hop_length, disable=True):
         chunks.append(inference_chunk(model, dwav[start : start + chunk_length], sr, device))
 
     hwav = merge_chunks(chunks, chunk_length, hop_length, sr=sr, length=dwav.shape[-1])
